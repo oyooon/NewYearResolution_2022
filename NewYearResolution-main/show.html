@@ -1,0 +1,172 @@
+<html>
+<head>
+    <title>Happy New Year</title>
+    <meta content="text/html"  charset="UTF-8">
+    <link href="css/style.css"      rel="stylesheet">
+    <link href="css/show_style.css" rel="stylesheet">
+    <link href="css/create_style.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-alpha1/html2canvas.js"></script>
+    <style>
+        #page{
+            width: 400px;
+            height: 600px;
+            aspect-ratio: 2/3;
+            text-align: center;
+            margin:  20px;
+            padding: 20px;
+            border: 8px solid #8FA5BC;
+            background-color: #FFFFFF;
+        }
+        #form_table{
+            width: 100%;
+            height: 100%;
+            padding: 30px;
+            margin: 0 auto;
+            border: 2px solid black;
+            border-collapse: collapse;
+        }
+        #form_table tr, td{
+            padding: 8px 23px;
+        }
+        #text_table{
+            width: 100%;
+            height: 95%;
+            padding: 0 5px;
+        }
+        #text_table td{
+            border-bottom: 1px solid black;
+            vertical-align: bottom;
+            padding: 5px 5px;
+        }
+        #f_subject{
+            padding-top: 5px;
+            font-size: 17px;
+            text-align: center;
+        }
+        #f_name{
+            font-size: 14px;
+            width: min-content;
+            text-align: right;
+            padding: 0px 25px;
+        }
+        .numb{
+            width: 0px;
+            text-align: right;
+        }
+        .f_text{
+            width: 100%;
+            height: 20px;
+            line-height: 20px;
+            font-size: 14px;
+            text-align: left;
+            vertical-align: bottom;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+<div id="header">
+    <h2 id="subject" onclick="location.href='index.html'">New Year Plan</h2>
+</div>
+<div id="container">
+    <div id="page">
+        <table id="form_table">
+            <tr>
+                <td style="text-align:center">
+                    <p type="text" id="f_subject" name="subject" placeholder="Subject"></p>
+                </td>
+            </tr>
+            <tr >
+                <td id="f_name" style="text-align: right">
+                </td>
+            </tr>
+            <tr><td >
+            <table id="text_table">
+            </table>
+            </td></tr>
+        </table>
+    </div>
+    <div id="show_op_div">
+        <button id="download"><img src = "/img/download.png" width="26px"></button>
+        <button id="delete"><img src = "/img/delete.png" width="26px"></button>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    //URL 에서 param 가져오기
+    const url = new URL(window.location.href);
+    const param = url.searchParams;
+    const id = param.get("id");
+
+    //request 전송
+    const request = new XMLHttpRequest();
+    //request 초기화
+    request.open('POST', '/Select?id='+id);
+    request.setRequestHeader('Content-Type','application/x-www-form-urlencoded;charset=UTF-8');
+    //request 전송
+    request.send();
+
+
+    let res = null;
+    request.onreadystatechange = function(event){
+        if(request.readyState === 4 && request.status === 200) {
+            res = JSON.parse(request.responseText);
+            res = res[0];
+            //글자 넣기
+            document.getElementById("f_subject").innerHTML=res.subject;
+            document.getElementById("f_name").innerHTML=res.user_name;
+            for(let i=1;i<11;i++){
+                document.getElementById("text_table").innerHTML
+                    += "<tr><td class=\"numb\">"+i+". </td><td class=\"f_text\">"+res["text_"+i]+"</td></tr>"
+            }
+            //background
+            document.getElementById('page').style.background=res.backc;
+            //font color
+            document.getElementById('form_table').style.color=res.fontc;
+            document.getElementById('text_table').style.color=res.fontc;
+            //bord color
+            document.getElementById('page').style.borderColor=res.bordc_1;
+            document.getElementById('form_table').style.borderColor=res.bordc_2;
+            //line color
+            const td = document.getElementById('text_table').getElementsByTagName('td');
+            for(let i=0;i<td.length;i++){
+                td.item(i).style.borderColor=res.linec;
+            }
+        }
+    }
+
+    /** 이미지 다운로드 css가 같이 전송되지 않는 문제 있음 */
+    document.getElementById("download").onclick=function (){
+        console.log("download");
+        let page = document.getElementById('page');
+        html2canvas(page).then(function (canvas){
+            console.log(canvas);
+            var link = document.createElement("a");
+            link.href = canvas.toDataURL("image/png");
+            link.download = id+'.png';
+            link.click();
+        });
+    }
+
+    /** 게시글 삭제 */
+    document.getElementById("delete").onclick=function (){
+        var input = prompt("정말 삭제하시겠습니까?\n비밀번호를 입력해주세요.");
+        // 비밀번호 확이
+        if(input === res.user_id){
+            //삭제 요청 전송
+            request.open('POST', '/Delete?'+id);
+            request.setRequestHeader('Content-Type','application/x-www-form-urlencoded;charset=UTF-8');
+            request.send();
+            //완료 후 페이지 이동
+            request.onreadystatechange = function(event){
+                if(request.readyState === 4 && request.status === 200) {
+                    location.href=request.responseURL;
+                }
+            }
+        }else{
+            alert("비밀번호가 틀렸습니다.");
+        }
+    }
+</script>

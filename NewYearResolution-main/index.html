@@ -1,0 +1,87 @@
+<html>
+<head>
+    <title>Happy New Year</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/index_style.css" rel="stylesheet">
+</head>
+<body>
+    <div id="header">
+        <h2 id="subject" onclick="location.href='index.html'">New Year Plan</h2>
+        <div id="search_div"><b>SEARCH : &nbsp</b><input type="text" id="search"></div>
+    </div>
+    <div id="container">
+        <div id="gallery">
+        </div>
+        <div id="create_div">
+            <h3>CREATE!</h3>
+            <button id="create" onclick="location.href='create.html'">+</button>
+        </div>
+    </div>
+    <div id="footer">
+    </div>
+</body>
+</html>
+<script>
+    const request = new XMLHttpRequest();
+    const gal = document.getElementById("gallery");
+    const search = document.getElementById("search");
+
+    /** 시작 시 게시글 불러오기 */
+    window.onload = function (){
+        request.open('POST', '/Select');
+        request.setRequestHeader('Content-Type','application/x-www-form-urlencoded;charset=UTF-8');
+        request.send();
+    }
+    /** 검색 시 게시글 불러오기 */
+    search.addEventListener('keyup', (e) => {
+        if(e.key==='Enter'){
+            if(search.value===""){
+                request.open('POST', '/Select');
+            }else{
+                request.open('POST', '/Select?message='+search.value);
+            }
+            gal.innerHTML=null;
+            request.setRequestHeader('Content-Type','application/x-www-form-urlencoded;charset=UTF-8');
+            request.send();
+        }
+    });
+
+    /** request 응답 받기 */
+    request.onreadystatechange = function(event) {
+        // 모든 정보 도착 확인
+        if(request.readyState === 4 && request.status === 200) {
+            var res = JSON.parse(request.responseText);
+            //출력
+            for (const re of res) {
+                gal.innerHTML+=
+                    "<div id='page' id='"+re["_id"]+"' onclick=\"location.href='show.html?id="+re['_id']+"'\" style = 'border-color:"+re['bordc_1']+";background: "+re['backc']+"'>"+
+                    "<table id='form_table' style='color:"+re['fontc']+";border-color:"+re['bordc_2']+"'>" +
+                    "<tr style='text-align:center'><td>\n" +
+                    "   <p  id='f_subject'>"+re["subject"]+"</p>\n" +
+                    "</td></tr>\n" +
+                    "<tr style='text-align:right' id='f_name'><td>\n" +
+                    "  "+ re["user_name"] +
+                    "</td></tr>\n" +
+                    "<tr><td >\n" +
+                    "   <table class='text_table' id='tb"+re['_id']+"' style='color:"+re['fontc']+"'>\n" +
+                    "       <tr><td class='numb'>1. </td><td class='f_text'>"+re["text_1"]+"</td></tr>\n" +
+                    "       <tr><td class='numb'>2. </td><td class='f_text'>"+re["text_2"]+"</td></tr>\n" +
+                    "       <tr><td class='numb'>3. </td><td class='f_text'>"+re["text_3"]+"</td></tr>\n" +
+                    "       <tr><td class='numb'>4. </td><td class='f_text'>"+re["text_4"]+"</td></tr>\n" +
+                    "       <tr><td class='numb'>5. </td><td class='f_text'>"+re["text_5"]+"</td></tr>\n" +
+                    "       <tr><td class='numb'>6. </td><td class='f_text'>"+re["text_6"]+"</td></tr>\n" +
+                    "       <tr><td class='numb'>7. </td><td class='f_text'>"+re["text_7"]+"</td></tr>\n" +
+                    "       <tr><td class='numb'>8. </td><td class='f_text'>"+re["text_8"]+"</td></tr>\n" +
+                    "       <tr><td class='numb'>9. </td><td class='f_text'>"+re["text_9"]+"</td></tr>\n" +
+                    "       <tr><td class='numb'>10.</td><td class='f_text'>"+re["text_10"]+"</td></tr>\n" +
+                    "   </table>\n" +
+                    "</td></tr></table></div>\n"
+                var temp = document.getElementById('tb'+re["_id"]).getElementsByTagName('td');
+                for(let i=0;i<temp.length;i++){
+                    temp.item(i).style.borderColor=re['linec'];
+                }
+            }
+        }
+    };
+</script>

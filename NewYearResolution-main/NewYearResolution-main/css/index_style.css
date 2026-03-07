@@ -1,0 +1,55 @@
+#page:hover{
+    opacity: 0.8;
+}
+
+#search_div{
+    height: 47px;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    top: 0%;
+    right: 5%;
+    padding-top: 25px;
+}
+#search{
+    background: #C2CFDF;
+    height: 70%;
+    margin-top: -5px;
+    padding: 0px 10px;
+}
+#create_div{
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    bottom: 5%;
+    right: 3%;
+}
+#create{
+    width: 76px;
+    height: 76px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0;
+    border-radius: 45px;
+    font-size: 100px;
+    color: #8D847F;
+}
+#gallery{
+    width: 90%;
+    min-width: 587px;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    flex-flow: wrap;
+    position: relative;
+}
+#img{
+    width: 210px;
+    aspect-ratio: 2/3;
+    text-align: center;
+    border: 5px solid #8FA5BC;
+    background-color: #FFFFFF;
+}

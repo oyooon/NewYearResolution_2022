@@ -1,0 +1,15 @@
+#container{
+    flex-direction: column;
+}
+#show_op_div{
+    width: 320px;
+    float: right;
+}
+#download{
+    border: none;
+    background: none;
+}
+#delete{
+    border: none;
+    background: none;
+}

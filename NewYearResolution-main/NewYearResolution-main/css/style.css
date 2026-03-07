@@ -1,0 +1,123 @@
+body{
+    margin: 0px;
+    background: #8FA5BC;
+    color: #5A504A;
+}
+input[type="text"]{
+    border-radius: 0;
+    box-shadow: none;
+    outline: none;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    background: none;
+    vertical-align: bottom;
+    line-height: 100%;
+}
+#header{
+    width: 100%;
+    height: 67px;
+    position: fixed;
+    top: 0%;
+    background: #8FA5BC;
+    justify-content: center;
+    text-align: center;
+    flex-wrap: wrap;
+    z-index: 999;
+}
+#container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 70px;
+}
+#footer{
+    height: 150px;
+}
+
+#subject{
+    background: #8FA5BC;
+    cursor: default;
+    color: #5A504A;
+}
+
+/* ./create */
+#page{
+    width: 320px;
+    height: 480px;
+    aspect-ratio: 2/3;
+    text-align: center;
+    margin:  10px;
+    padding: 10px;
+    border: 5px solid #8FA5BC;
+    background-color: #FFFFFF;
+}
+#form_table{
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    margin: 0 auto;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+#form_table tr, td{
+    padding: 5px 15px;
+}
+#text_table{
+    width: 100%;
+    height: 95%;
+}
+#text_table td{
+    border-bottom: 1px solid black;
+}
+
+#text_table{
+    width: 100%;
+    height: 95%;
+    padding: 0;
+}
+#text_table td{
+    border-bottom: 1px solid black;
+}
+.text_table{
+    width: 100%;
+    height: 95%;
+    padding: 0 5px;
+}
+.text_table td{
+    border-bottom: 1px solid black;
+    font-size: 13px;
+    vertical-align: bottom;
+    font-weight: bold;
+}
+#f_subject{
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+}
+#f_name{
+    font-size: 13px;
+    width: min-content;
+    text-align: right;
+    font-weight: bold;
+    padding-right: 5px;
+}
+#submit_btn{
+    width: 60px;
+    padding: 3px;
+    font-size: 16px;
+    font-weight: bold;
+    background: #eeeeee;
+    border: 2px solid #5A504A;
+    border-radius: 10px;
+    color: #5A504A;
+}
+#submit_btn:hover{
+    background: #dddddd
+}
+.numb{
+    width: 0px;
+    text-align: right;
+    padding: 3px;
+}

@@ -1,0 +1,207 @@
+<html>
+    <head>
+        <title>Happy New Year</title>
+        <meta content="text/html"  charset="UTF-8">
+        <link href="css/style.css"    rel="stylesheet">
+        <link href="css/create_style.css" rel="stylesheet">
+        <link href="css/checkbox.css" rel="stylesheet">
+    </head>
+    <body>
+        <div id="header">
+            <h2 id="subject" onclick="location.href='index.html'">New Year Plan</h2>
+        </div>
+        <div id="container">
+            <form method="post" id="form_create" action="/Insert" accept-charset="UTF-8">
+            <div id="page">
+                <table id="form_table">
+                    <tr  style="text-align:center">
+                        <td >
+                            <input type="text" id="f_subject" name="subject" placeholder="Subject" maxlength="20">
+                        </td>
+                    </tr>
+                    <tr style="text-align:right">
+                        <td >
+                            <input type="text" id="f_name" name="user_name" placeholder="Nickname" maxlength="20">
+                        </td>
+                    </tr>
+                    <tr><td >
+                            <table id="text_table">
+                                <tr><td class="numb">1. </td><td><input class="f_text" type="text" name="text_1" maxlength="35"></td></tr>
+                                <tr><td class="numb">2. </td><td><input class="f_text" type="text" name="text_2" maxlength="35"></td></tr>
+                                <tr><td class="numb">3. </td><td><input class="f_text" type="text" name="text_3" maxlength="35"></td></tr>
+                                <tr><td class="numb">4. </td><td><input class="f_text" type="text" name="text_4" maxlength="35"></td></tr>
+                                <tr><td class="numb">5. </td><td><input class="f_text" type="text" name="text_5" maxlength="35"></td></tr>
+                                <tr><td class="numb">6. </td><td><input class="f_text" type="text" name="text_6" maxlength="35"></td></tr>
+                                <tr><td class="numb">7. </td><td><input class="f_text" type="text" name="text_7" maxlength="35"></td></tr>
+                                <tr><td class="numb">8. </td><td><input class="f_text" type="text" name="text_8" maxlength="35"></td></tr>
+                                <tr><td class="numb">9. </td><td><input class="f_text" type="text" name="text_9" maxlength="35"></td></tr>
+                                <tr><td class="numb">10.</td><td><input class="f_text" type="text" name="text_10" maxlength="35"></td></tr>
+                            </table>
+                    </td></tr>
+                </table>
+                <input type="hidden" id="back_color" name="backc" value="#ffffff">
+                <input type="hidden" id="font_color" name="fontc" value="#000000">
+                <input type="hidden" id="bord_color1" name="bordc_1" value="#8FA5BC">
+                <input type="hidden" id="bord_color2" name="bordc_2" value="#000000">
+                <input type="hidden" id="line_color" name="linec" value="#000000">
+            </div>
+                <div>
+                    <b>비밀 번호 : <input type="text" id="f_id" name="user_id"></b>
+                </div>
+            </form>
+            <br>
+            <br>
+            <br>
+
+            <div id="options">
+                <table id="option_table">
+                    <tr><td>배경</td>
+                        <td colspan="2">
+                            <input type='color' id="back_c" value="#ffffff"/>
+                        </td></tr>
+                    <tr><td>글자</td>
+                        <td colspan="2">
+                            <input type='color' id="font_c" value="#000000"/>
+                        </td></tr>
+                    <tr><td>바깥 테두리</td>
+                        <td rowspan="2">
+                            <input type='color' id="bord_c" value="#000000"/>
+                        </td>
+                        <td>
+                            <input type="checkbox" class="switch" id="switch1" onclick="border1_onoff(this.checked)">
+                            <label for="switch1" class="switch_label" id="switch_label1">
+                                <span id="onf1" class="onf_btn"></span>
+                            </label>
+                        </td></tr>
+                    <tr><td>안 테두리</td>
+                        <td>
+                            <input type="checkbox" class="switch" id="switch2" onclick="border2_onoff(this.checked)" checked>
+                            <label for="switch2" class="switch_label" id="switch_label2">
+                                <span id="onf2" class="onf_btn"></span>
+                            </label>
+                        </td></tr>
+                    <tr><td>줄</td>
+                        <td>
+                            <input type='color' id="line_c" value="#000000"/>
+                        </td>
+                        <td>
+                            <input type="checkbox" class="switch" id="switch3" onclick="line_onoff(this.checked)" checked>
+                            <label for="switch3" class="switch_label" id="switch_label3">
+                                <span id="onf3" class="onf_btn"></span>
+                            </label>
+                        </td></tr>
+                </table><br>
+                <button id="submit_btn">제출</button>
+            </div>
+        </div>
+
+    </body>
+</html>
+<script>
+    let subject = document.getElementById("subject");
+    let name = document.getElementById("f_name");
+    let pw = document.getElementById("f_id");
+    let submit = document.getElementById("form_create");
+
+    /** 제목, 이름, 비밀번호 입력 확인 후 FORM 전송 */
+    document.getElementById("submit_btn").onclick=function (){
+        if(subject.value==="") alert("제목을 입력해주세요");
+        else if(name.value==="") alert("이름을 입력해주세요");
+        else if(pw.value==="") alert("비밀번호를 입력해주세요");
+        else submit.submit();
+    }
+
+    let bodyc ="#8FA5BC"
+    let backc = document.getElementById("back_color");
+    let fontc = document.getElementById("font_color");
+    let bordc1 = document.getElementById("bord_color1");
+    let bordc2 = document.getElementById("bord_color2");
+    let linec = document.getElementById("line_color");
+    let line  = true;
+    let border1 = true;
+    let border2 = true;
+
+    /** 배경 색상 변경 */
+    document.getElementById("back_c").onchange=function (){
+        backc.value = this.value;
+        document.getElementById('page').style.background=backc.value;
+    }
+
+    /** 글자 색상 변경 */
+    document.getElementById("font_c").onchange=function (){
+        fontc.value = this.value;
+        let text = document.querySelectorAll('input[type=text]');
+        for(let i=0;i<text.length;i++) {
+            text.item(i).style.color = fontc.value
+        }
+        document.getElementById('text_table').style.color=fontc.value;
+        document.getElementById('f_id').style.color="#000000";
+    }
+
+    /** 테두리 색상 변경 */
+    document.getElementById("bord_c").onchange=function (){
+        bordc1.value=this.value;
+        bordc2.value=this.value;
+        if(border1)
+            document.getElementById('page').style.borderColor=bordc1.value;
+        if(border2)
+            document.getElementById('form_table').style.borderColor=bordc1.value;
+        else
+            document.getElementById('form_table').style.borderColor=backc.value;
+
+    }
+    /** 선 색상 변경 */
+    document.getElementById("line_c").onchange=function (){
+        linec.value=this.value;
+        let td = document.getElementById('text_table').getElementsByTagName('td');
+        if(line){
+            for(let i=0;i<td.length;i++){
+                td.item(i).style.borderColor=linec.value
+            }
+        }else{
+            for(let i=0;i<td.length;i++){
+                td.item(i).style.borderColor=backc.value
+            }
+        }
+
+    }
+
+    /** 바깥 테두리 ON/OFF */
+    function border1_onoff(onoff){
+        if(onoff){
+            border1 = true;
+            bordc1.value=document.getElementById("bord_c").value;
+        }else{
+            border1 = false;
+            bordc1.value=bodyc
+        }
+        document.getElementById('page').style.borderColor=bordc1.value;
+    }
+
+    /** 안 테두리 ON/OFF */
+    function border2_onoff(onoff){
+        if(onoff){
+            border2 = true;
+            bordc2.value=document.getElementById("bord_c").value;
+        }else{
+            border2 = false;
+            bordc2.value=backc.value;
+        }
+        document.getElementById('form_table').style.borderColor=bordc2.value;
+    }
+
+    /** 선 ON/OFF */
+    function line_onoff(onoff){
+        let td = document.getElementById('text_table').getElementsByTagName('td');
+        if(onoff){
+            line = true;
+            linec.value=document.getElementById("line_c").value;
+        }else{
+            line = false;
+            linec.value=backc.value;
+        }
+        for(let i=0;i<td.length;i++){
+            td.item(i).style.borderColor=linec.value
+        }
+    }
+</script>
