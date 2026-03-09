@@ -127,6 +127,3 @@ DELETE  --> HOME([홈 게시판으로 이동])
 HOME    --> END([스레드 CLOSE])
 
 ```
-
-## 상세보기
-https://www.notion.so/nasong/New-Year-Plan-b829e3ae281046c2a131ae6999c6c989
